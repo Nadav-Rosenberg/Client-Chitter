@@ -1,30 +1,14 @@
-// function httpGet(theUrl)
-// {
-//     var xmlHttp = null;
-
-//     xmlHttp = new XMLHttpRequest();
-//     xmlHttp.open( "GET", theUrl, true );
-//     xmlHttp.send();
-//     return xmlHttp.responseText;
-// }
-
-
 
 setInterval(function(){
-  var xhr = new XMLHttpRequest();
-  xhr.open("GET", "https://immense-beach-9973.herokuapp.com/api/all_peeps", false);
-  xhr.send();
-  var peeps = xhr.responseText;
-  console.log(xhr.responseText);
-  $("#peepList").html(peeps);
-},3000);
+$.getJSON( "http://localhost:9292//api/all_peeps", function( data ) {
+    var peep_string = '<ul>'
+  for (var i = 0; i < data.length; i++) {
 
-// setInterval(function(){
-//   var x = new XMLHttpRequest();
-//   x.open("GET", "http://localhost:9292/api/all_peeps", false);
-//   x.send();
-//   var peeps = x.responseText;
-//   $("#peepList").html(peeps);
-// },1200);
+      peep_string = peep_string.concat('<li>',data[i]["text"],' by ',data[i]["author"],' at ',data[i]["time"],'</li>');
+  };
+  peep_string.concat('</ul>');
+  $('#peepList').html(peep_string);
+});
+},1500);
 
 
