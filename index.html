@@ -7,6 +7,45 @@
 </head>
 
 <body>
-  <div id="peepList">Hello Chitter</div>
+
+  <form id="signIn" action="http://localhost:9292/api/sign_in" title="" method="post">
+          <div>
+              Email: <input type="text" id="email" name="email" >          
+              Passowrd: <input type="password" id="password" name="password" >
+              <input type="submit" id="submitButton"  name="submitButton" value="Sign In">
+          </div>
+  </form>
+  <script type='text/javascript'>
+      $("#signIn").submit(function(event) {
+        event.preventDefault();
+        var $form = $( this ),
+            url = $form.attr( 'action' );
+        var obj = { email: $('#email').val(), password: $('#password').val() };
+        var posting = $.post( url, obj );
+        posting.done(function( data ) {
+          alert('success');
+        });
+      });
+   </script>
+
+   <form id="peep" action="http://localhost:9292/api/new_peep" title="" method="post">
+          <div>
+              Peep: <input type="text" id="peep" name="peep" >          
+              <input type="submit" id="submitPeep"  name="submitPeep" value="Peep">
+          </div>
+  </form>
+  <script type='text/javascript'>
+      $("#peep").submit(function(event) {
+        event.preventDefault();
+        var $form = $( this ),
+            url = $form.attr( 'action' );
+        var posting = $.post( url, { peep: $('#peep').val() } );
+        posting.done(function( data ) {
+          alert('Peep recieved');
+        });
+      });
+   </script>
+
+  <div id="peepList">Hello and Welcome to Chitter!!! THese are the recent messages</div>
 </body>
 </html>
